@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>عيد ميلاد راندا 🎉</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff66cc;
+            --gold: #ffcc00;
+            --soft-purple: #ccbbff;
+            --bg-dark: #0a0a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        .stage {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: opacity 0.8s ease;
+            z-index: 10;
+        }
+
+        /* المرحلة 1: العد التنازلي */
+        #countdown-stage { background: radial-gradient(circle, #1a1a3a, #0a0a1a); z-index: 30; }
+        .count-num { font-size: 8rem; font-weight: 800; color: var(--gold); animation: pulse 1s infinite; }
+
+        /* المرحلة 2: الألعاب النارية */
+        #fireworks-stage { background: #000; z-index: 20; display: none; }
+
+        /* المرحلة 3: المحتوى الرئيسي */
+        #party-stage { 
+            display: none; 
+            overflow-y: auto; 
+            background: linear-gradient(to bottom, #0a0a1a, #1a0a2a);
+            padding: 20px 10px;
+        }
+
+        .hero-section { margin-top: 40px; padding: 20px; }
+        .hero-title { font-size: 2.2rem; color: var(--gold); }
+        .name-sparkle { font-size: 3.2rem; color: var(--primary-pink); display: block; text-shadow: 0 0 15px var(--primary-pink); margin: 10px 0; }
+
+        /* قسم الرسائل الجديد */
+        .wishes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 10px;
+        }
+
+        .wish-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-right: 4px solid var(--primary-pink);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: right;
+            backdrop-filter: blur(10px);
+            animation: fadeInRight 0.8s ease forwards;
+        }
+
+        .wish-card h3 { color: var(--gold); font-size: 1.2rem; margin-bottom: 8px; }
+        .wish-card p { color: #e0e0e0; font-size: 1rem; line-height: 1.6; }
+
+        /* الفراشات */
+        .butterfly { position: fixed; font-size: 24px; pointer-events: none; z-index: 100; }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+    </style>
+</head>
+<body onclick="createHeart(event)">
+
+    <section class="stage" id="countdown-stage">
+        <h2 style="margin-bottom: 20px; color: var(--soft-purple);">استعدي للمفاجأة...</h2>
+        <div class="count-num" id="timer">3</div>
+    </section>
+
+    <section class="stage" id="fireworks-stage">
+        <canvas id="fireworksCanvas"></canvas>
+        <h1 style="font-size: 2.5rem; color: white;">🎆 كـــــل عـــــام وأنـتِ بخير 🎇</h1>
+    </section>
+
+    <section class="stage" id="party-stage">
+        <div style="width: 100%;">
+            <div class="hero-section">
+                <h1 class="hero-title">اليوم يوم ميلاد السكر</h1>
+                <span class="name-sparkle">يا راندا 🎉</span>
+                <p style="color: var(--soft-purple); font-size: 1.1rem;">"كبرتِ سنة، وكبرتِ في قلوبنا ألف سنة"</p>
+            </div>
+
+            <div class="wishes-grid">
+                <div class="wish-card">
+                    <h3>🌸 تهنئة من القلب</h3>
+                    <p>كل عام وأنتِ بألف خير، يا أجمل من كبر سنة، ويا ألطف قلب عرفناه. أتمنى لكِ سنة تشبه جمال ضحكتك.</p>
+                </div>
+
+                <div class="wish-card" style="animation-delay: 0.2s;">
+                    <h3>✨ أمنية لكِ</h3>
+                    <p>في عامكِ الجديد، أدعو الله أن يحقق لكِ كل ما تتمنينه، وأن تكون أيامكِ كلها مليئة بالنجاح والراحة.</p>
+                </div>
+
+                <div class="wish-card" style="animation-delay: 0.4s;">
+                    <h3>🎂 سر السعادة</h3>
+                    <p>لأنكِ راندا، فأنتِ تستحقين الأفضل دائماً. شكراً لأنكِ موجودة في حياتنا وشكراً على كل لحظة جميلة.</p>
+                </div>
+                
+                <div class="wish-card" style="animation-delay: 0.6s;">
+                    <h3>💝 رفيقة الدرب</h3>
+                    <p>يا أغلى صديقة، كل عام وأنتِ منبع الفرح، وكل عام ونحن نحتفل بكِ وبجمال روحكِ النقية.</p>
+                </div>
+            </div>
+
+            <div style="margin: 40px 0; padding-bottom: 50px;">
+                <p style="color: var(--gold);">اضغطي في أي مكان لإرسال حب 💖</p>
+                <div style="font-size: 2.5rem; letter-spacing: 15px; margin-top: 15px;">🎂🎉🦋🎁</div>
+                <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">صُنع بكل حب من أجلكِ</p>
+            </div>
+        </div>
+    </section>
+
+    <audio id="bg-music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const timerEl = document.getElementById('timer');
+        const stages = { count: document.getElementById('countdown-stage'), fire: document.getElementById('fireworks-stage'), party: document.getElementById('party-stage') };
+
+        let timeLeft = 3;
+        const countInterval = setInterval(() => {
+            timeLeft--;
+            if (timeLeft > 0) timerEl.innerText = timeLeft;
+            else { clearInterval(countInterval); goToFireworks(); }
+        }, 1000);
+
+        function goToFireworks() {
+            stages.count.style.opacity = '0';
+            setTimeout(() => {
+                stages.count.style.display = 'none';
+                stages.fire.style.display = 'flex';
+                initFireworks();
+                setTimeout(goToParty, 3000);
+            }, 500);
+        }
+
+        function goToParty() {
+            stages.fire.style.opacity = '0';
+            setTimeout(() => {
+                stages.fire.style.display = 'none';
+                stages.party.style.display = 'block';
+                document.getElementById('bg-music').play();
+                startButterflies();
+            }, 500);
+        }
+
+        function startButterflies() {
+            const icons = ['🦋', '✨', '🌸', '🎈'];
+            setInterval(() => {
+                const b = document.createElement('div');
+                b.className = 'butterfly';
+                b.innerText = icons[Math.floor(Math.random() * icons.length)];
+                b.style.left = '-50px';
+                b.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(b);
+
+                let posX = -50;
+                let angle = 0;
+                const move = setInterval(() => {
+                    posX += 2;
+                    angle += 0.1;
+                    b.style.left = posX + 'px';
+                    b.style.top = (parseFloat(b.style.top) + Math.sin(angle) * 2) + 'px';
+                    if (posX > window.innerWidth + 50) { clearInterval(move); b.remove(); }
+                }, 20);
+            }, 1200);
+        }
+
+        function createHeart(e) {
+            const heart = document.createElement('div');
+            heart.innerHTML = ['💖', '🎂', '🌟', '🎉'][Math.floor(Math.random()*4)];
+            heart.style.position = 'fixed';
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.fontSize = '24px';
+            heart.style.transition = 'all 1s ease';
+            heart.style.zIndex = '1000';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.style.transform = `translateY(-120px) scale(2)`; heart.style.opacity = '0'; }, 10);
+            setTimeout(() => heart.remove(), 1000);
+        }
+
+        function initFireworks() {
+            const canvas = document.getElementById('fireworksCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const particles = [];
+            function animate() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                if (particles.length < 40) {
+                    particles.push({
+                        x: Math.random() * canvas.width, y: canvas.height,
+                        vx: Math.random() * 4 - 2, vy: Math.random() * -12 - 6,
+                        color: `hsl(${Math.random() * 360}, 100%, 60%)`, size: 3
+                    });
+                }
+                particles.forEach((p, i) => {
+                    p.x += p.vx; p.y += p.vy; p.vy += 0.2;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                    if (p.y > canvas.height) particles.splice(i, 1);
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+    </script>
+</body>
+</html>
