@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عيد ميلاد راندا 🎉🎂</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Amiri', sans-serif;
+            background: #0a0a2a;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+        }
+        
+        /* مراحل الموقع */
+        .stage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease;
+            z-index: 10;
+        }
+        
+        /* المرحلة 1: العد التنازلي */
+        #countdown-stage {
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
+            z-index: 30;
+        }
+        
+        .countdown-title {
+            font-size: 4rem;
+            color: #ffcc00;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s;
+        }
+        
+        .countdown-box {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1s;
+        }
+        
+        .countdown-number {
+            font-size: 5rem;
+            font-weight: 800;
+            background: rgba(255, 255, 255, 0.1);
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            color: #ff3366;
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.8);
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.3);
+        }
+        
+        .countdown-label {
+            font-size: 1.5rem;
+            color: #ccbbff;
+            margin-top: 10px;
+        }
+        
+        .get-ready {
+            font-size: 2.5rem;
+            color: #ffccff;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1.5s;
+            margin-top: 30px;
+        }
+        
+        /* المرحلة 2: الألعاب النارية */
+        #fireworks-stage {
+            background: linear-gradient(180deg, #000033 0%, #000011 100%);
+            z-index: 20;
+        }
+        
+        .fireworks-title {
+            font-size: 5rem;
+            color: #ffffff;
+            text-shadow: 0 0 25px #ff3366;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.5s;
+        }
+        
+        .fireworks-subtitle {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1s;
+        }
+        
+        /* المرحلة 3: الحفل والمحتوى */
+        #party-stage {
+            z-index: 10;
+        }
+        
+        .party-header {
+            padding: 50px 20px 30px;
+            background: linear-gradient(180deg, rgba(138, 43, 226, 0.2) 0%, transparent 100%);
+            margin-bottom: 40px;
+        }
+        
+        .birthday-wish {
+            font-size: 4.5rem;
+            color: #ffcc00;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
+        }
+        
+        .friend-name {
+            font-size: 6rem;
+            color: #ff66cc;
+            display: block;
+            text-shadow: 
+                0 0 20px rgba(255, 102, 204, 0.8),
+                0 0 40px rgba(255, 102, 204, 0.4);
+            animation: glow 2s infinite alternate;
+            margin: 20px 0;
+        }
+        
+        .lovely-message {
+            font-size: 2.8rem;
+            color: #ccddff;
+            max-width: 900px;
+            margin: 40px auto;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        
+        /* محتوى الحفل */
+        .party-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-size: 3.5rem;
+            color: #8a2be2;
+            margin: 60px 0 40px;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff3366, transparent);
+        }
+        
+        /* البطاقات */
+        .friendship-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .friendship-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            padding: 35px 25px;
+            width: 350px;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .friendship-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff3366, #8a2be2, #ffcc00);
+        }
+        
+        .friendship-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 204, 0, 0.4);
+        }
+        
+        .card-icon {
+            font-size: 4rem;
+            color: #ffcc00;
+            margin-bottom: 25px;
+        }
+        
+        .card-title {
+            font-size: 2.2rem;
+            color: #ffccff;
+            margin-bottom: 20px;
+        }
+        
+        .card-text {
+            font-size: 1.6rem;
+            line-height: 1.7;
+            color: #ccbbff;
+        }
+        
+        /* المعرض */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 70px;
+        }
+        
+        .memory-item {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 280px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .memory-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(255, 51, 102, 0.3);
+        }
+        
+        .memory-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .memory-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .memory-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        /* تذييل الصفحة */
+        .footer {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 50px 20px 40px;
+            margin-top: 60px;
+            border-top: 2px solid rgba(255, 204, 0, 0.3);
+        }
+        
+        .final-wish {
+            font-size: 2.8rem;
+            color: #ffcc00;
+            margin-bottom: 30px;
+        }
+        
+        .friendship-hearts {
+            font-size: 3.5rem;
+            color: #ff3366;
+            letter-spacing: 15px;
+            margin: 40px 0;
+        }
+        
+        .copyright {
+            font-size: 1.6rem;
+            color: #aaaaff;
+            margin-top: 40px;
+        }
+        
+        /* الألعاب النارية */
+        .firework {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .explosion {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        /* الرسوم المتحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 20px rgba(255, 102, 204, 0.8); }
+            100% { text-shadow: 0 0 30px rgba(255, 102, 204, 1), 0 0 50px rgba(255, 102, 204, 0.6); }
+        }
+        
+        @keyframes countdownPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fireworksFly {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(var(--target-y)); opacity: 1; }
+        }
+        
+        @keyframes fireworksExplode {
+            0% { transform: scale(0); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+        
+        /* التجاوب مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .countdown-title { font-size: 3rem; }
+            .countdown-number { font-size: 4rem; width: 90px; height: 90px; }
+            .countdown-box { gap: 15px; }
+            .fireworks-title { font-size: 3.5rem; }
+            .birthday-wish { font-size: 3.5rem; }
+            .friend-name { font-size: 4.5rem; }
+            .lovely-message { font-size: 2.2rem; padding: 0 15px; }
+            .section-title { font-size: 2.8rem; }
+            .friendship-card { width: 100%; max-width: 400px; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+        }
+        
+        @media (max-width: 480px) {
+            .countdown-title { font-size: 2.5rem; }
+            .countdown-number { font-size: 3rem; width: 70px; height: 70px; }
+            .fireworks-title { font-size: 2.8rem; }
+            .birthday-wish { font-size: 2.8rem; }
+            .friend-name { font-size: 3.5rem; }
+            .lovely-message { font-size: 1.9rem; }
+            .section-title { font-size: 2.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- المرحلة 1: العد التنازلي -->
+    <section class="stage" id="countdown-stage">
+        <h1 class="countdown-title">🎂 استعدي للمفاجأة 🎂</h1>
+        <div class="countdown-box">
+            <div>
+                <div class="countdown-number" id="count-3">3</div>
+                <div class="countdown-label">ثواني</div>
+            </div>
+            <div>
+                <div class="countdown-number" id="count-2">2</div>
+                <div class="countdown-label">ثواني</div>
+            </div>
+            <div>
+                <div class="countdown-number" id="count-1">1</div>
+                <div class="countdown-label">ثواني</div>
+            </div>
+        </div>
+        <p class="get-ready">المفاجأة قادمة...</p>
+    </section>
+    
+    <!-- المرحلة 2: الألعاب النارية -->
+    <section class="stage" id="fireworks-stage" style="display: none; opacity: 0;">
+        <h1 class="fireworks-title">🎆 ألعاب نارية 🎇</h1>
+        <p class="fireworks-subtitle">احتفالاً بميلاد راندا!</p>
+    </section>
+    
+    <!-- المرحلة 3: الحفل والمحتوى -->
+    <section class="stage" id="party-stage" style="display: none; opacity: 0;">
+        <div class="party-header">
+            <h1 class="birthday-wish">🎉 كل عام وأنتي بخير 🎉</h1>
+            <span class="friend-name">يا راندا</span>
+            <p class="lovely-message">
+                <span class="highlight">يا أحلى بنت</span>، كل عام وأنتِ <span class="highlight">أجمل</span>، <span class="highlight">أطيب</span>، و<span class="highlight">أحلى صديقة</span> في الدنيا! 🎀
+            </p>
+        </div>
+        
+        <div class="party-content">
+            <h2 class="section-title">🎀 رسالتي لكِ 🎀</h2>
+            <p class="lovely-message" style="font-size: 2.3rem;">
+                "صديقتي الغالية راندا، في عيد ميلادك أريد أن أقول لكِ: 
+                <span class="highlight">أنتِ نعمة في حياتي</span>، 
+                <span class="highlight">فرحة أيامي</span>، و
+                <span class="highlight">سر ابتسامتي</span>. 
+                أتمنى لكِ سنة جديدة مليئة بكل ما تتمنينه، لأنكِ تستحقين الأجمل دائمًا!"
+            </p>
+            
+            <h2 class="section-title">💝 لماذا أنتِ صديقة رائعة؟ 💝</h2>
+            <div class="friendship-cards">
+                <div class="friendship-card">
+                    <div class="card-icon"><i class="fas fa-heart"></i></div>
+                    <h3 class="card-title">قلبك الطيب</h3>
+                    <p class="card-text">قلبك الذهبي ونقاء روحك يجعلان منكِ صديقة لا تُنسى، فأنتِ تقدمين الحب بلا شروط.</p>
+                </div>
+                
+                <div class="friendship-card">
+                    <div class="card-icon"><i class="fas fa-laugh-beam"></i></div>
+                    <h3 class="card-title">فرحتك المعدية</h3>
+                    <p class="card-text">ضحكتك تملأ الجو فرحًا، وروحك المرحة تجعل كل اللحظات معكِ مميزة وجميلة.</p>
+                </div>
+                
+                <div class="friendship-card">
+                    <div class="card-icon"><i class="fas fa-hands-helping"></i></div>
+                    <h3 class="card-title">وقوفك بجانبي</h3>
+                    <p class="card-text">في أصعب اللحظات، كنتِ دائمًا بجانبي. هذه الصداقة هي كنز لا يعوض.</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title">📸 ذكرياتنا الجميلة 📸</h2>
+            <div class="gallery" id="gallery-container">
+                <!-- سيتم إضافة الصور ديناميكيًا -->
+            </div>
+            
+            <h2 class="section-title">🎁 أمنياتي لكِ في هذه السنة 🎁</h2>
+            <div class="friendship-cards">
+                <div class="friendship-card">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <h3 class="card-title">نجاح متواصل</h3>
+                    <p class="card-text">أتمنى لكِ سنة مليئة بالإنجازات والنجاح في كل ما تطمحين إليه.</p>
+                </div>
+                
+                <div class="friendship-card">
+                    <div class="card-icon"><i class="fas fa-smile"></i></div>
+                    <h3 class="card-title">سعادة دائمة</h3>
+                    <p class="card-text">أمنيتي أن تظل الابتسامة لا تفارق محياكِ، وأن تكون كل أيامكِ فرحًا.</p>
+                </div>
+                
+                <div class="friendship-card">
+                    <div class="card-icon"><i class="fas fa-gift"></i></div>
+                    <h3 class="card-title">تحقيق الأحلام</h3>
+                    <p class="card-text">أدعو الله أن يحقق كل أحلامكِ وأن يجعل هذه السنة بداية لكل ما تتمنين.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p class="final-wish">🎂 كل عام وأنتِ أغلى صديقة 🎂</p>
+            <p class="lovely-message" style="font-size: 2rem; color: #ccddff;">
+                شكرًا لأنكِ جزء جميل من حياتي، وكل عام وأنتِ بألف خير يا راندا!
+            </p>
+            <div class="friendship-hearts">💖✨🎀🎉🎂🌟💝🦋</div>
+            <p class="copyright">صنع بكل المودة من صديقك في عيد ميلادك 🎈</p>
+        </div>
+    </section>
+
+    <!-- الصوت -->
+    <audio id="countdown-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="fireworks-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-party-horn-sound-2927.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="birthday-music" loop preload="auto">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-to-you-443.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // عناصر DOM
+        const countdownStage = document.getElementById('countdown-stage');
+        const fireworksStage = document.getElementById('fireworks-stage');
+        const partyStage = document.getElementById('party-stage');
+        const count3 = document.getElementById('count-3');
+        const count2 = document.getElementById('count-2');
+        const count1 = document.getElementById('count-1');
+        
+        // الأصوات
+        const countdownSound = document.getElementById('countdown-sound');
+        const fireworksSound = document.getElementById('fireworks-sound');
+        const birthdayMusic = document.getElementById('birthday-music');
+        
+        // الألوان للألعاب النارية
+        const fireworkColors = ['#ff3366', '#ffcc00', '#33ccff', '#ff66cc', '#8a2be2', '#00ff99'];
+        
+        // العد التنازلي
+        function startCountdown() {
+            let count = 3;
+            const countdown = setInterval(() => {
+                // تشغيل صوت العد
+                countdownSound.currentTime = 0;
+                countdownSound.play();
+                
+                // تأثير الرقم
+                const currentCount = document.getElementById(`count-${count}`);
+                currentCount.style.animation = 'none';
+                setTimeout(() => {
+                    currentCount.style.animation = 'countdownPop 0.5s';
+                }, 10);
+                
+                if (count === 1) {
+                    clearInterval(countdown);
+                    setTimeout(() => {
+                        // الانتقال إلى الألعاب النارية
+                        countdownStage.style.opacity = '0';
+                        setTimeout(() => {
+                            countdownStage.style.display = 'none';
+                            fireworksStage.style.display = 'flex';
+                            setTimeout(() => {
+                                fireworksStage.style.opacity = '1';
+                                startFireworks();
+                            }, 100);
+                        }, 1500);
+                    }, 1000);
+                }
+                
+                count--;
+            }, 1000);
+        }
+        
+        // الألعاب النارية
+        function startFireworks() {
+            // تشغيل صوت الألعاب النارية
+            fireworksSound.play();
+            
+            // إنشاء الألعاب النارية
+            const fireworksCount = 25;
+            let launched = 0;
+            
+            const launchFirework = () => {
+                if (launched >= fireworksCount) {
+                    // الانتقال إلى الحفل بعد انتهاء الألعاب النارية
+                    setTimeout(() => {
+                        fireworksStage.style.opacity = '0';
+                        setTimeout(() => {
+                            fireworksStage.style.display = 'none';
+                            partyStage.style.display = 'block';
+                            setTimeout(() => {
+                                partyStage.style.opacity = '1';
+                                birthdayMusic.play();
+                                birthdayMusic.volume = 0.6;
+                                setupGallery();
+                                setupFloatingHearts();
+                            }, 300);
+                        }, 1500);
+                    }, 2000);
+                    return;
+                }
+                
+                launched++;
+                
+                // إنشاء اللعبة النارية
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                
+                // لون عشوائي
+                const color = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+                firework.style.backgroundColor = color;
+                firework.style.boxShadow = `0 0 10px ${color}`;
+                
+                // وضع عشوائي
+                const left = Math.random() * 80 + 10;
+                const targetY = Math.random() * 50 + 20;
+                
+                firework.style.left = left + 'vw';
+                firework.style.top = '100vh';
+                firework.style.setProperty('--target-y', targetY + 'vh');
+                
+                fireworksStage.appendChild(firework);
+                
+                // تحليق اللعبة النارية
+                firework.style.animation = `fireworksFly 1s forwards`;
+                
+                // الانفجار
+                setTimeout(() => {
+                    createExplosion(left, targetY, color);
+                    firework.remove();
+                }, 1000);
+                
+                // إطلاق اللعبة النارية التالية بعد تأخير عشوائي
+                setTimeout(launchFirework, Math.random() * 300 + 200);
+            };
+            
+            // بدء إطلاق الألعاب النارية
+            launchFirework();
+        }
+        
+        // إنشاء انفجار الألعاب النارية
+        function createExplosion(left, targetY, color) {
+            const particles = 30;
+            
+            for (let i = 0; i < particles; i++) {
+                const explosion = document.createElement('div');
+                explosion.className = 'explosion';
+                
+                explosion.style.width = '8px';
+                explosion.style.height = '8px';
+                explosion.style.backgroundColor = color;
+                explosion.style.boxShadow = `0 0 15px ${color}`;
+                explosion.style.left = `calc(${left}vw - 4px)`;
+                explosion.style.top = `calc(${targetY}vh - 4px)`;
+                
+                fireworksStage.appendChild(explosion);
+                
+                // حركة الجسيمات
+                const angle = (i / particles) * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                
+                explosion.style.animation = `fireworksExplode 1.5s forwards`;
+                explosion.style.setProperty('--x', `${x}px`);
+                explosion.style.setProperty('--y', `${y}px`);
+                
+                // إزالة الجسيمات بعد الانتهاء
+                setTimeout(() => {
+                    if (explosion.parentNode) explosion.remove();
+                }, 1500);
+            }
+        }
+        
+        // إعداد المعرض
+        function setupGallery() {
+            const gallery = document.getElementById('gallery-container');
+            const images = [
+                {url: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', title: 'فرح دائم'},
+                {url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w-600&q=80', title: 'لحظات سعيدة'},
+                {url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', title: 'ذكريات جميلة'},
+                {url: 'https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', title: 'صداقة حقيقية'},
+                {url: 'https://images.unsplash.com/photo-1464347601390-25e2842a37e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', title: 'أجمل الأوقات'},
+                {url: 'https://images.unsplash.com/photo-1532117182044-031e7cd916ee?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80', title: 'ضحكات لا تنسى'}
+            ];
+            
+            images.forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'memory-item';
+                
+                const image = document.createElement('img');
+                image.src = img.url;
+                image.alt = img.title;
+                
+                const label = document.createElement('div');
+                label.className = 'memory-label';
+                label.textContent = img.title;
+                
+                item.appendChild(image);
+                item.appendChild(label);
+                gallery.appendChild(item);
+            });
+        }
+        
+        // إنشاء قلوب طافية
+        function setupFloatingHearts() {
+            const hearts = ['💖', '✨', '🎀', '🎉', '🎂', '🌟', '💝', '🦋'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.position = 'fixed';
+                heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '100vh';
+                heart.style.opacity = Math.random() * 0.5 + 0.5;
+                heart.style.zIndex = '5';
+                heart.style.pointerEvents = 'none';
+                heart.style.animation = `fireworksFly ${Math.random() * 10 + 10}s linear forwards`;
+                
+                document.body.appendChild(heart);
+                
+                // إزالة القلب بعد الرسوم المتحركة
+                setTimeout(() => {
+                    if (heart.parentNode) heart.remove();
+                }, 15000);
+            }, 1000);
+        }
+        
+        // بدء التطبيق
+        window.addEventListener('DOMContentLoaded', () => {
+            startCountdown();
+        });
+    </script>
+</body>
+</html>
